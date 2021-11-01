@@ -105,6 +105,8 @@ class RecipeCard extends HTMLElement {
     image.setAttribute('src', searchForKey(data, 'thumbnailUrl'));
     card.appendChild(image)
 
+
+
     const title = document.createElement('p');
     title.setAttribute('class', title)
     const links = document.createElement('a');
@@ -113,23 +115,29 @@ class RecipeCard extends HTMLElement {
     card.appendChild(links);
     card.appendChild(title)
 
+
     const organization = document.createElement('p');
     organization.setAttribute('class', 'title')
     organization.textContent = getOrganization(data);
     card.append(organization);
 
+
     const rating = document.createElement('div');
     rating.setAttribute('class', 'rating');
     const reviews = document.createElement('span');
     const num = document.createElement('span');
+
+    
     if(searchForKey(data, 'ratingValue')){
       reviews.textContent = searchForKey(data, 'ratingValue')
       let stars = document.createElement('img');
       let avgReview = Math.round(searchForKey(data, 'ratingValue'))
       num.textContent = '('+searchForKey(data,'ratingCount') + ')';
+
       stars.setAttribute('src', './assets/images/icons/' + avgReview + '-star.svg')
       stars.setAttribute('alt', avgReview + '-star.svg');
       rating.appendChild(reviews);
+
       rating.appendChild(stars)
       rating.append(num);
     }
