@@ -1,8 +1,8 @@
 class RecipeCard extends HTMLElement {
   constructor() {
     // Part 1 Expose - TODO
-
-    // You'll want to attach the shadow DOM here
+    super();
+    this.attachShadow({mode: 'open'})
   }
 
   set data(data) {
@@ -100,6 +100,58 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    const image = document.createElement('img')
+    image.setAttribute('src', searchForKey(data, 'thumbnailUrl'));
+    image.setAttribute('alt', searchForKey(data, 'headline'))
+    card.appendChild(image)
+
+    const title = document.createElement('p');
+    title.setAttribute('class', title)
+    const links = document.createElement('a');
+    links.setAttribute('href', getUrl(data));
+    links.text=searchForKey(data,"headline");
+    card.appendChild(links);
+    card.appendChild(title)
+
+    const organization = document.createElement('p');
+    organization.setAttribute('class', 'title')
+    organization.textContent = getOrganization(data);
+    card.append(organization);
+
+    const rating = document.createElement('div');
+    rating.setAttribute('class', 'rating');
+    const reviews = document.createElement('span');
+    const num = document.createElement('span');
+    if(searchForKey(data, 'ratingValue')){
+      reviews.textContent = searchForKey(data, 'ratingValue')
+      let stars = document.createElement('img');
+      let avgReview = Math.round(searchForKey(data, 'ratingValue'))
+      num.textContent = '('+searchForKey(data,'ratingCount') + ')';
+      stars.setAttribute('src', './assets/images/icons/' + avgReview + '-star.svg')
+      stars.setAttribute('alt', avgReview + '-star.svg');
+      rating.appendChild(reviews);
+      rating.appendChild(stars)
+      rating.append(num);
+    }
+    else {
+      reviews.textContent = 'No reviews';
+      rating.append(reviews)
+    }
+    card.appendChild(rating)
+
+    const time = document.createElement('time');
+    const toteTime = searchForKey(data, 'totalTime')
+    time.textContent = convertTime(toteTime);
+    card.appendChild(time);
+
+    const ingredients = document.createElement('p');
+    ingredients.setAttribute('class', 'ingredients');
+    const ingred = searchForKey(data, "recipeIngredient");
+    ingredients.textContent = ingred;
+    card.appendChild(ingredients);
+
+    this.shadowRoot.appendChild(styleElem);
+    this.shadowRoot.appendChild(card);
   }
 }
 
