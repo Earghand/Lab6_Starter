@@ -52,7 +52,7 @@ async function fetchRecipes() {
         recipeData[recipes[i]] = data;
         if(Object.keys(recipeData).length == recipes.length) {
           console.log("TEST")
-          console.log(recipeData);
+          console.log(Object.keys(recipeData))
           resolve(true);
         }
       })
