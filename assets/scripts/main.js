@@ -98,7 +98,7 @@ function bindShowMore() {
       for(let i = 3; i<6; i+=1) {
         let x = document.createElement('recipe-card');
         x.data = recipeData[recipes[i]];
-        y.id = "new";
+        y.id = "newChild";
         y.appendChild(x);
       }
     }
